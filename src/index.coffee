@@ -1,5 +1,6 @@
 #!/usr/bin/env coffee
 
+import CONFIG from '@rmw/config'
 import '@rmw/console/global'
 
 import MPLEX from 'libp2p-mplex'
@@ -8,10 +9,12 @@ import Libp2p from 'libp2p'
 import TCP from 'libp2p-tcp'
 import multiaddr from 'multiaddr'
 
+
 do =>
+  port = CONFIG.port or 0
   node = await Libp2p.create({
     addresses:
-      listen:['/ip4/0.0.0.0/tcp/0']
+      listen:["/ip4/0.0.0.0/tcp/#{port}"]
     modules:
       transport: [TCP]
       connEncryption: [NOISE]
@@ -19,12 +22,18 @@ do =>
   })
   await node.start()
   console.log "node start"
-  node.multiaddrs.forEach (addr) =>
+
+  setPort = =>
+    CONFIG.port = port
+
+  node.multiaddrs.forEach (addr)=>
+    if not port
+      {port} = addr.nodeAddress()
+      setPort()
     console.log("#{addr.toString()}/p2p/#{node.peerId.toB58String()}")
 
   # 47.104.79.244
   # await node.stop()
-  console.log process.argv
   {length} = process.argv
   if length > 3
     ma = multiaddr(process.argv[length-1])
