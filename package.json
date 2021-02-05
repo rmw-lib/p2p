@@ -12,7 +12,7 @@
     "/lib"
   ],
   "dependencies": {
-    "@rmw/console": "^0.0.14",
+    "@rmw/console": "^0.0.15",
     "libp2p": "^0.30.7",
     "libp2p-mplex": "^0.10.2",
     "libp2p-noise": "^2.0.4",
