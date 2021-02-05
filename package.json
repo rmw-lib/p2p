@@ -12,7 +12,12 @@
     "/lib"
   ],
   "dependencies": {
-    "@rmw/console": "^0.0.14"
+    "@rmw/console": "^0.0.14",
+    "libp2p": "^0.30.7",
+    "libp2p-mplex": "^0.10.2",
+    "libp2p-noise": "^2.0.4",
+    "libp2p-tcp": "^0.15.3",
+    "multiaddr": "^8.1.2"
   },
   "devDependencies": {
     "@rmw/md-include": "^0.4.5",
